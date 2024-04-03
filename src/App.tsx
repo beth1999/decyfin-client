@@ -9,6 +9,7 @@ import Footer from "./components/layouts/footer";
 import Activity from "./pages/Activity";
 
 import "react-toastify/dist/ReactToastify.css";
+import PostDetail from "./pages/PostDetail";
 
 const projectId = "faf641330f6b3ce2811bb5eb411267df";
 
@@ -64,6 +65,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/activity" element={<Activity />} />
+                <Route path="/post/:id" element={<PostDetail />} />
             </Routes>
             <Footer />
 
