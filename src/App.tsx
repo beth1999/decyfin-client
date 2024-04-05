@@ -10,6 +10,7 @@ import Activity from "./pages/Activity";
 
 import "react-toastify/dist/ReactToastify.css";
 import PostDetail from "./pages/PostDetail";
+import MainNav from "./components/layouts/MainNav";
 
 const projectId = "faf641330f6b3ce2811bb5eb411267df";
 
@@ -49,8 +50,10 @@ function App() {
         <AuthProvider>
             <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/activity" element={<Activity />} />
+                <Route element={<MainNav />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/activity" element={<Activity />} />
+                </Route>
                 <Route path="/post/:id" element={<PostDetail />} />
             </Routes>
             <Footer />

@@ -114,7 +114,7 @@ function Header() {
                     </button>
 
                     {menuOpen ? (
-                        <div className="absolute right-0 top-[100%] bg-white flex flex-col items-start justify-center px-8 py-5 rounded-sm shadow-md shadow-zinc-300">
+                        <div className="absolute right-0 top-[100%] bg-white flex flex-col items-start justify-center px-8 py-5 rounded-sm shadow-md shadow-zinc-300 z-40">
                             <div className="flex">
                                 <p>{user.address.slice(0, 4) + "..." + user.address.slice(-5)}</p>
                             </div>
