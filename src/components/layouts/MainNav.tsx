@@ -69,7 +69,21 @@ export default function MainNav() {
                         <div className="p-4 bg-white border-[1px] border-zinc-200 rounded-lg">
                             <h4 className="text-2xl font-bold pb-2">Recent Comments</h4>
                             <div className="flex flex-col gap-2">
-                                <p className="text-sm text-zinc-600 font-medium">No comments to show.</p>
+                                {recentComments.length > 0 ? (
+                                    recentComments.map((recentComment: any) => (
+                                        <Link
+                                            to={`/post/${recentComment.post.id}`}
+                                            className="hover:text-red-500 text-md font-medium"
+                                            key={recentComment.id}
+                                        >
+                                            {recentComment.content.length > 10
+                                                ? recentComment.content.slice(0, 9) + "..."
+                                                : recentComment.content}
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <p className="text-sm text-zinc-600 font-medium">No comments to show.</p>
+                                )}
                             </div>
                         </div>
                     </div>
