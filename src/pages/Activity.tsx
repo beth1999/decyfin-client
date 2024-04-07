@@ -32,7 +32,7 @@ export default function Activity() {
                             className="p-4 border-[1px] border-zinc-300 rounded-lg bg-white transition-all duration-300 hover:shadow-lg"
                             key={post.id}
                         >
-                            <p className="text-[#ef5455] text-sm font-bold uppercase pb-3.5">Uncategorized</p>
+                            <p className="text-[#ef5455] text-sm font-bold uppercase pb-3.5">{post.category.name}</p>
                             <div className="pb-3.5">
                                 <Link to={"/post/" + post.id} className="text-2xl font-medium hover:text-red-500">
                                     {post.title}
