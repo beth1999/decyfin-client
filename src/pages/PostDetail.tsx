@@ -69,7 +69,7 @@ export default function PostDetail() {
         <section className="container mx-auto px-5 min-h-screen max-w-5xl">
             {post ? (
                 <div className="transition-all duration-300 mx-auto p-5">
-                    <p className="text-[#ef5455] text-sm font-bold uppercase py-3.5 mt-20">{post.category.name}</p>
+                    <p className="text-[#ef5455] text-sm font-bold uppercase py-3.5 mt-20">{post?.category?.name}</p>
                     <div className="py-2">
                         <h2 className="text-4xl font-medium">{post?.title}</h2>
                     </div>
