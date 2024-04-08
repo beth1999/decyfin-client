@@ -1,6 +1,6 @@
 function Home() {
     return (
-        <div className="max-w-4xl">
+        <div className="max-w-4xl flex-1">
             <h5 className="text-lg font-medium text-[#111111] font-sans">
                 Please check your <i className="underline font-bold">SPAM FOLDER</i> after you register. Make sure you
                 white list us. The confirmation email may end up into your{" "}

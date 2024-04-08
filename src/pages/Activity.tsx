@@ -22,9 +22,9 @@ export default function Activity() {
     };
 
     return (
-        <div className="flex flex-col items-start justify-center">
+        <div className="flex flex-col flex-1">
             <h2 className="text-4xl font-medium py-10">Activity</h2>
-            <div className="max-w-4xl flex flex-col gap-5 flex-1">
+            <div className="max-w-4xl flex flex-col gap-5 w-full">
                 {posts.length > 0 ? (
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     posts.map((post: any) => (
@@ -49,7 +49,7 @@ export default function Activity() {
                         </div>
                     ))
                 ) : (
-                    <div className="flex items-center justify-center">No Data</div>
+                    <div className="flex items-center justify-center">No Data1</div>
                 )}
             </div>
         </div>
