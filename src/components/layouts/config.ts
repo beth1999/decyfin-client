@@ -8,11 +8,11 @@ export const menu: MenuListInterface[] = [
         name: "Activity",
     },
     {
-        href: "/groups",
-        name: "Groups",
+        href: "https://www.decyfin.com/",
+        name: "Visit Decyfin",
     },
-    // {
-    //     href: "/members",
-    //     name: "Members",
-    // },
+    {
+        href: "https://www.decyfincoin.com/",
+        name: "Buy DecyfinCoin",
+    },
 ];
