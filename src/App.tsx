@@ -11,6 +11,7 @@ import Activity from "./pages/Activity";
 import "react-toastify/dist/ReactToastify.css";
 import PostDetail from "./pages/PostDetail";
 import MainNav from "./components/layouts/MainNav";
+import Category from "./pages/Category";
 
 const projectId = "faf641330f6b3ce2811bb5eb411267df";
 
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/activity" element={<Activity />} />
                 </Route>
                 <Route path="/post/:id" element={<PostDetail />} />
+                <Route path="/category/:id" element={<Category />} />
             </Routes>
             <Footer />
 

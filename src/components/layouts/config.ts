@@ -11,8 +11,8 @@ export const menu: MenuListInterface[] = [
         href: "/groups",
         name: "Groups",
     },
-    {
-        href: "/members",
-        name: "Members",
-    },
+    // {
+    //     href: "/members",
+    //     name: "Members",
+    // },
 ];

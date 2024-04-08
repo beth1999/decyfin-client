@@ -37,44 +37,48 @@ export default function PostDetail() {
         try {
             const { data } = await Api.get("/post/" + id);
 
+            console.log(data);
             setPost(data.data);
 
-            if (
-                !data.data.vote.y_vote.includes(user.address) &&
-                !data.data.vote.n_vote.includes(user.address) &&
-                !data.data.vote.nt_vote.includes(user.address) &&
-                data.data.vote.status === "OPEN"
-            ) {
-                setOpenVote(true);
-            } else {
-                const totalSum =
-                    data.data.vote.y_vote.length + data.data.vote.n_vote.length + data.data.vote.nt_vote.length;
-                setPercent({
-                    yes: (data.data.vote.y_vote.length / totalSum) * 100,
-                    no: (data.data.vote.n_vote.length / totalSum) * 100,
-                    not: (data.data.vote.nt_vote.length / totalSum) * 100,
-                });
-                if (data.data.vote.y_vote.includes(user.address)) {
-                    setSelected({
-                        ...selected,
-                        yes: true,
+            if (data.data.voteStatus) {
+                if (
+                    !data.data.vote.y_vote.includes(user.address) &&
+                    !data.data.vote.n_vote.includes(user.address) &&
+                    !data.data.vote.nt_vote.includes(user.address) &&
+                    data.data.vote.status === "OPEN"
+                ) {
+                    setOpenVote(true);
+                } else {
+                    const totalSum =
+                        data.data.vote.y_vote.length + data.data.vote.n_vote.length + data.data.vote.nt_vote.length;
+                    setPercent({
+                        yes: (data.data.vote.y_vote.length / totalSum) * 100,
+                        no: (data.data.vote.n_vote.length / totalSum) * 100,
+                        not: (data.data.vote.nt_vote.length / totalSum) * 100,
                     });
+                    if (data.data.vote.y_vote.includes(user.address)) {
+                        setSelected({
+                            ...selected,
+                            yes: true,
+                        });
+                    }
+                    if (data.data.vote.n_vote.includes(user.address)) {
+                        setSelected({
+                            ...selected,
+                            no: true,
+                        });
+                    }
+                    if (data.data.vote.n_vote.includes(user.address)) {
+                        setSelected({
+                            ...selected,
+                            not: true,
+                        });
+                    }
+                    setOpenVote(false);
                 }
-                if (data.data.vote.n_vote.includes(user.address)) {
-                    setSelected({
-                        ...selected,
-                        no: true,
-                    });
-                }
-                if (data.data.vote.n_vote.includes(user.address)) {
-                    setSelected({
-                        ...selected,
-                        not: true,
-                    });
-                }
-                setOpenVote(false);
             }
         } catch (err) {
+            console.log(err);
             setPost(null);
         }
     };
@@ -151,61 +155,63 @@ export default function PostDetail() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col justify-center items-start my-16 gap-5">
-                        <div className="">
-                            <h4 className="text-xl font-bold">{post.vote.question}</h4>
+                    {post.voteStatus ? (
+                        <div className="flex flex-col justify-center items-start my-16 gap-5">
+                            <div className="">
+                                <h4 className="text-xl font-bold">{post.vote.question}</h4>
+                            </div>
+                            <div className="flex flex-col items-start justify-center w-full gap-3">
+                                {openVote ? (
+                                    <button
+                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
+                                        onClick={() => handleSubmit(1)}
+                                    >
+                                        Yes
+                                    </button>
+                                ) : (
+                                    <div className="text-sm px-3 py-1 bg-zinc-300 w-full rounded-md border-[1px] border-zinc-300 flex items-center justify-between">
+                                        <div className="flex items-center justify-center gap-1">
+                                            <p>Yes</p>
+                                            {selected.yes ? <CiCircleCheck className="text-lg" /> : null}
+                                        </div>
+                                        <p>{percent.yes}%</p>
+                                    </div>
+                                )}
+                                {openVote ? (
+                                    <button
+                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
+                                        onClick={() => handleSubmit(0)}
+                                    >
+                                        No
+                                    </button>
+                                ) : (
+                                    <div className="text-sm px-3 py-1 bg-zinc-300 w-full rounded-md border-[1px] border-zinc-300 flex items-center justify-between">
+                                        <div className="flex items-center justify-center gap-1">
+                                            <p>No</p>
+                                            {selected.no ? <CiCircleCheck className="text-lg" /> : null}
+                                        </div>
+                                        <p>{percent.no}%</p>
+                                    </div>
+                                )}
+                                {openVote ? (
+                                    <button
+                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
+                                        onClick={() => handleSubmit(2)}
+                                    >
+                                        Not Sure
+                                    </button>
+                                ) : (
+                                    <div className="text-sm px-3 py-1 bg-zinc-300 w-full rounded-md border-[1px] border-zinc-300 flex items-center justify-between">
+                                        <div className="flex items-center justify-center gap-1">
+                                            <p className="">Not Sure</p>
+                                            {selected.not ? <CiCircleCheck className="text-lg" /> : null}
+                                        </div>
+                                        <p className="">{percent.not}%</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                        <div className="flex flex-col items-start justify-center w-full gap-3">
-                            {openVote ? (
-                                <button
-                                    className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
-                                    onClick={() => handleSubmit(1)}
-                                >
-                                    Yes
-                                </button>
-                            ) : (
-                                <div className="text-sm px-3 py-1 bg-zinc-300 w-full rounded-md border-[1px] border-zinc-300 flex items-center justify-between">
-                                    <div className="flex items-center justify-center gap-1">
-                                        <p>Yes</p>
-                                        {selected.yes ? <CiCircleCheck className="text-lg" /> : null}
-                                    </div>
-                                    <p>{percent.yes}%</p>
-                                </div>
-                            )}
-                            {openVote ? (
-                                <button
-                                    className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
-                                    onClick={() => handleSubmit(0)}
-                                >
-                                    No
-                                </button>
-                            ) : (
-                                <div className="text-sm px-3 py-1 bg-zinc-300 w-full rounded-md border-[1px] border-zinc-300 flex items-center justify-between">
-                                    <div className="flex items-center justify-center gap-1">
-                                        <p>No</p>
-                                        {selected.no ? <CiCircleCheck className="text-lg" /> : null}
-                                    </div>
-                                    <p>{percent.no}%</p>
-                                </div>
-                            )}
-                            {openVote ? (
-                                <button
-                                    className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
-                                    onClick={() => handleSubmit(2)}
-                                >
-                                    Not Sure
-                                </button>
-                            ) : (
-                                <div className="text-sm px-3 py-1 bg-zinc-300 w-full rounded-md border-[1px] border-zinc-300 flex items-center justify-between">
-                                    <div className="flex items-center justify-center gap-1">
-                                        <p className="">Not Sure</p>
-                                        {selected.not ? <CiCircleCheck className="text-lg" /> : null}
-                                    </div>
-                                    <p className="">{percent.not}%</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    ) : null}
 
                     <p className="text-zinc-600 text-sm font-semibold">{post?.content}</p>
                 </div>

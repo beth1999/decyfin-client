@@ -6,10 +6,12 @@ import { Api } from "../../service/api";
 export default function MainNav() {
     const [recentPosts, setRecentPosts] = useState<any>([]);
     const [recentComments, setRecentComments] = useState<any>([]);
+    const [categories, setCategories] = useState<any>([]);
 
     useEffect(() => {
         getRecents();
         getComments();
+        getCategory();
     }, []);
 
     const getRecents = async () => {
@@ -26,9 +28,17 @@ export default function MainNav() {
         try {
             const { data } = await Api.get("/comment/recent");
 
-            console.log(data);
-
             setRecentComments(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getCategory = async () => {
+        try {
+            const { data } = await Api.get("/category/all");
+
+            setCategories(data.data);
         } catch (err) {
             console.log(err);
         }
@@ -83,6 +93,26 @@ export default function MainNav() {
                                     ))
                                 ) : (
                                     <p className="text-sm text-zinc-600 font-medium">No comments to show.</p>
+                                )}
+                            </div>
+                        </div>
+                        <div className="p-4 bg-white border-[1px] border-zinc-200 rounded-lg">
+                            <h4 className="text-2xl font-bold pb-2">Categories</h4>
+                            <div className="flex flex-col gap-2">
+                                {categories.length > 0 ? (
+                                    categories.map((category: any) => (
+                                        <Link
+                                            to={`/category/${category.id}`}
+                                            className="hover:text-red-500 text-md font-medium"
+                                            key={category.id}
+                                        >
+                                            {category.name.length > 10
+                                                ? category.name.slice(0, 9) + "..."
+                                                : category.name}
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <p className="text-sm text-zinc-600 font-medium">No category to show.</p>
                                 )}
                             </div>
                         </div>
