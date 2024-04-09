@@ -163,7 +163,7 @@ export default function PostDetail() {
                             <div className="flex flex-col items-start justify-center w-full gap-3">
                                 {openVote ? (
                                     <button
-                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
+                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300 max-w-xl mx-auto"
                                         onClick={() => handleSubmit(1)}
                                     >
                                         Yes
@@ -179,7 +179,7 @@ export default function PostDetail() {
                                 )}
                                 {openVote ? (
                                     <button
-                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
+                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300 max-w-xl mx-auto"
                                         onClick={() => handleSubmit(0)}
                                     >
                                         No
@@ -195,7 +195,7 @@ export default function PostDetail() {
                                 )}
                                 {openVote ? (
                                     <button
-                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300"
+                                        className="px-3 py-1 border-[1px] border-cyan-400 text-sm font-semibold hover:bg-cyan-400 hover:bg-opacity-30 rounded-full w-full transition-all duration-300 max-w-xl mx-auto"
                                         onClick={() => handleSubmit(2)}
                                     >
                                         Not Sure
