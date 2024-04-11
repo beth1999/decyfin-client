@@ -13,7 +13,12 @@ export default function MainNav() {
         getRecents();
         getComments();
         getCategory();
-        getSurvey();
+
+        const interval = setInterval(() => {
+            getSurvey();
+        }, 5000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const getRecents = async () => {
