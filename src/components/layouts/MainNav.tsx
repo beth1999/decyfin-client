@@ -7,11 +7,13 @@ export default function MainNav() {
     const [recentPosts, setRecentPosts] = useState<any>([]);
     const [recentComments, setRecentComments] = useState<any>([]);
     const [categories, setCategories] = useState<any>([]);
+    const [isEmptySurvey, setIsEmptySurvey] = useState<boolean>(false);
 
     useEffect(() => {
         getRecents();
         getComments();
         getCategory();
+        getSurvey();
     }, []);
 
     const getRecents = async () => {
@@ -44,11 +46,25 @@ export default function MainNav() {
         }
     };
 
+    const getSurvey = async () => {
+        try {
+            const { data } = await Api.get("/survey/all");
+
+            if (data.data.length > 0) {
+                setIsEmptySurvey(true);
+            } else {
+                setIsEmptySurvey(false);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <section className="2xl:container mx-auto px-5 xl:px-40 min-h-screen">
             <div className="flex justify-center gap-10 py-10 px-2 max-lg:flex-col">
                 <Outlet />
-                <div className="">
+                <div className="max-w-[350px]">
                     <div className="flex-1 flex flex-col gap-5 sticky top-5">
                         <div className="p-4 bg-white border-[1px] border-zinc-200 rounded-lg">
                             <p>Search</p>
@@ -116,6 +132,40 @@ export default function MainNav() {
                                 )}
                             </div>
                         </div>
+                        {isEmptySurvey ? (
+                            <div className="p-4 bg-black flex flex-col items-center justify-center gap-3 rounded-lg">
+                                <div className="flex items-center justify-center gap-4">
+                                    <img src="/image/ring.png" alt="" className="w-10" />
+                                    <p className="text-white text-sm">
+                                        Voting is now open. Take this opportunity to have your say and make a difference
+                                    </p>
+                                </div>
+                                <div className="flex items-center justify-end gap-2 w-full">
+                                    <Link to={"/survey"}>
+                                        <button className="rounded-md bg-[#3941FF] px-5 py-1.5 text-white font-medium">
+                                            Survey Now
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="p-4 bg-black flex flex-col items-center justify-center gap-3 rounded-lg">
+                                <div className="flex items-center justify-center gap-4">
+                                    <img src="/image/ring.png" alt="" className="w-10" />
+                                    <div className="text-white text-sm font-medium text-md">
+                                        <b className="text-green-500">SURVEY CLOSED</b>, Thank you for your feedback!
+                                        check results.
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-end gap-2 w-full">
+                                    <Link to={"/survey"}>
+                                        <button className="rounded-md bg-[#3941FF] px-5 py-1.5 text-white font-medium">
+                                            Check Results
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
