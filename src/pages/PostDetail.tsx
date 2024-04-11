@@ -230,7 +230,7 @@ export default function PostDetail() {
                 <div className="w-full flex flex-col justify-center gap-5">
                     <div className="flex flex-col">
                         <label className="text-sm text-zinc-500" htmlFor="comment">
-                            Commnet <b className="text-red-400">*</b>
+                            Comment <b className="text-red-400">*</b>
                         </label>
                         <textarea
                             id="comment"

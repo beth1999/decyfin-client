@@ -8,6 +8,10 @@ export const menu: MenuListInterface[] = [
         name: "Activity",
     },
     {
+        href: "/survey",
+        name: "Survey",
+    },
+    {
         href: "https://www.decyfin.com/",
         name: "Visit Decyfin",
     },
