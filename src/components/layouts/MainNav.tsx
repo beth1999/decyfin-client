@@ -7,6 +7,7 @@ export default function MainNav() {
     const [recentPosts, setRecentPosts] = useState<any>([]);
     const [recentComments, setRecentComments] = useState<any>([]);
     const [categories, setCategories] = useState<any>([]);
+    const [isEmptyVote, setIsEmptyVote] = useState<boolean>(false);
     const [isEmptySurvey, setIsEmptySurvey] = useState<boolean>(false);
 
     useEffect(() => {
@@ -14,9 +15,11 @@ export default function MainNav() {
         getComments();
         getCategory();
         getSurvey();
+        getVote();
 
         const interval = setInterval(() => {
             getSurvey();
+            getVote();
         }, 5000);
 
         return () => clearInterval(interval);
@@ -60,6 +63,20 @@ export default function MainNav() {
                 setIsEmptySurvey(true);
             } else {
                 setIsEmptySurvey(false);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getVote = async () => {
+        try {
+            const { data } = await Api.get("/vote/all");
+
+            if (data.data.length > 0) {
+                setIsEmptyVote(true);
+            } else {
+                setIsEmptyVote(false);
             }
         } catch (err) {
             console.log(err);
@@ -143,7 +160,8 @@ export default function MainNav() {
                                 <div className="flex items-center justify-center gap-4">
                                     <img src="/image/ring.png" alt="" className="w-10" />
                                     <p className="text-white text-sm">
-                                        Voting is now open. Take this opportunity to have your say and make a difference
+                                        Survey is now open. We have an exciting opportunity for you to share your
+                                        thoughts and opinions.
                                     </p>
                                 </div>
                                 <div className="flex items-center justify-end gap-2 w-full">
@@ -167,6 +185,41 @@ export default function MainNav() {
                                     <Link to={"/survey"}>
                                         <button className="rounded-md bg-[#3941FF] px-5 py-1.5 text-white font-medium">
                                             Check Results
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
+
+                        {isEmptyVote ? (
+                            <div className="p-4 bg-black flex flex-col items-center justify-center gap-3 rounded-lg">
+                                <div className="flex items-center justify-center gap-4">
+                                    <img src="/image/ring.png" alt="" className="w-10" />
+                                    <p className="text-white text-sm">
+                                        Voting is now open. Take this opportunity to have your say and make a difference
+                                    </p>
+                                </div>
+                                <div className="flex items-center justify-end gap-2 w-full">
+                                    <Link to={"/activity"}>
+                                        <button className="rounded-md bg-[#3941FF] px-5 py-1.5 text-white font-medium">
+                                            Vote Now
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="p-4 bg-black flex flex-col items-center justify-center gap-3 rounded-lg">
+                                <div className="flex items-center justify-center gap-4">
+                                    <img src="/image/ring.png" alt="" className="w-10" />
+                                    <div className="text-white text-sm font-medium text-md">
+                                        <b className="text-red-500">VOTING CLOSED</b>, Thanks to all who participated!
+                                        Check results now.
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-end gap-2 w-full">
+                                    <Link to={"/activity"}>
+                                        <button className="rounded-md bg-[#3941FF] px-5 py-1.5 text-white font-medium">
+                                            View Vote
                                         </button>
                                     </Link>
                                 </div>
