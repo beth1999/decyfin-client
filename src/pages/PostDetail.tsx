@@ -37,7 +37,6 @@ export default function PostDetail() {
         try {
             const { data } = await Api.get("/post/" + id);
 
-            console.log(data);
             setPost(data.data);
 
             if (data.data.voteStatus) {

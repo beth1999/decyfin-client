@@ -85,7 +85,12 @@ export default function SurveyDetail() {
 
     const handleSubmit = async (status: number) => {
         try {
-            const { data } = await Api.put(`/survey/${id}`, { status: status });
+            if (!user.isAuth) {
+                toast.warn("Please login");
+                return;
+            }
+
+            const { data } = await Api.put(`/survey/choose/${id}`, { status: status });
 
             if (data && data.status) {
                 toast.success("Successfully selected");
@@ -122,14 +127,14 @@ export default function SurveyDetail() {
                         id="option1"
                         name="survey-choose"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer disabled:cursor-default"
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
                         onClick={() => handleSubmit(1)}
                         disabled={isSelect}
                         checked={selected.option1}
                     />
                     <label
                         htmlFor="option1"
-                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer disabled:cursor-default"
+                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer"
                     >
                         Option1
                     </label>
@@ -139,14 +144,14 @@ export default function SurveyDetail() {
                         id="option2"
                         name="survey-choose"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer disabled:cursor-default"
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
                         onClick={() => handleSubmit(2)}
                         disabled={isSelect}
                         checked={selected.option2}
                     />
                     <label
                         htmlFor="option2"
-                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer disabled:cursor-default"
+                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer"
                     >
                         Option2
                     </label>
@@ -156,14 +161,14 @@ export default function SurveyDetail() {
                         id="option3"
                         name="survey-choose"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer disabled:cursor-default"
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
                         onClick={() => handleSubmit(3)}
                         disabled={isSelect}
                         checked={selected.option3}
                     />
                     <label
                         htmlFor="option3"
-                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer disabled:cursor-default"
+                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer"
                     >
                         Option3
                     </label>
@@ -173,14 +178,14 @@ export default function SurveyDetail() {
                         id="option4"
                         name="survey-choose"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer disabled:cursor-default"
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
                         onClick={() => handleSubmit(4)}
                         disabled={isSelect}
                         checked={selected.option4}
                     />
                     <label
                         htmlFor="option4"
-                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer disabled:cursor-default"
+                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer"
                     >
                         Option4
                     </label>
@@ -190,14 +195,14 @@ export default function SurveyDetail() {
                         id="option5"
                         name="survey-choose"
                         type="radio"
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer disabled:cursor-default"
+                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
                         onClick={() => handleSubmit(5)}
                         disabled={isSelect}
                         checked={selected.option5}
                     />
                     <label
                         htmlFor="option5"
-                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer disabled:cursor-default"
+                        className="block text-sm font-medium leading-6 text-gray-900 cursor-pointer"
                     >
                         Option5
                     </label>
