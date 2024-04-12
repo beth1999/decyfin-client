@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import PostDetail from "./pages/PostDetail";
 import MainNav from "./components/layouts/MainNav";
 import Category from "./pages/Category";
+import Survey from "./pages/Survey";
+import SurveyDetail from "./pages/SurveyDetail";
 
 const projectId = "faf641330f6b3ce2811bb5eb411267df";
 
@@ -54,9 +56,11 @@ function App() {
                 <Route element={<MainNav />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/activity" element={<Activity />} />
+                    <Route path="/survey" element={<Survey />} />
                 </Route>
                 <Route path="/post/:id" element={<PostDetail />} />
                 <Route path="/category/:id" element={<Category />} />
+                <Route path="/survey/:id" element={<SurveyDetail />} />
             </Routes>
             <Footer />
 
